@@ -324,7 +324,7 @@ public class GUI extends javax.swing.JFrame {
                         }
                         // check if actual char isn't '-'
                     } else if (!Objects.equals(separated_chapters.get(i), "-")) {
-                        start = Integer.parseInt(separated_chapters.get(i));
+                        chapters_array.add(separated_chapters.get(i));
                     }
                 }
 
