@@ -529,8 +529,9 @@ public class GUI extends javax.swing.JFrame {
     // function to download the video
     public void downloadVideo(String video, String chapter) throws IOException {
         URL url = new URL(video);
+        String anime_name = replaceSpaceAnimeName();
         InputStream in = url.openStream();
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(getDestinationFolder() + "\\" + getAnimeName() + " " + chapter + ".mp4"));
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(getDestinationFolder() + "\\" + anime_name + " " + chapter + ".mp4"));
 
         for (int b; (b = in.read()) != -1; ) {
             out.write(b);
