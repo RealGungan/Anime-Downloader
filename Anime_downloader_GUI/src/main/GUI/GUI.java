@@ -3,8 +3,7 @@ package Anime_downloader_GUI.src.main.GUI;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlVideo;
+import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.util.WebConnectionWrapper;
 
 import javax.swing.*;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public class GUI extends javax.swing.JFrame {
 
@@ -38,11 +38,14 @@ public class GUI extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        jButton3 = new javax.swing.JButton();
+        download_progress = new javax.swing.JProgressBar();
+        actual_chapter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
         layout.columnWidths = new int[]{0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
-        layout.rowHeights = new int[]{0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        layout.rowHeights = new int[]{0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         getContentPane().setLayout(layout);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -50,7 +53,7 @@ public class GUI extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
         getContentPane().add(jLabel1, gridBagConstraints);
 
@@ -70,27 +73,27 @@ public class GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 14, 0, 14);
         getContentPane().add(jLabel3, gridBagConstraints);
 
-        jLabel4.setText("i.e.: 1,3,8,11,222)");
+        jLabel4.setText("Example: 1,3,8,11,222)");
         jLabel4.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 26;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 36;
         gridBagConstraints.gridwidth = 5;
         getContentPane().add(jLabel4, gridBagConstraints);
 
         jLabel5.setText("(To download multiple chapters");
         jLabel5.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 18;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 30;
         gridBagConstraints.gridwidth = 5;
         getContentPane().add(jLabel5, gridBagConstraints);
 
-        jLabel6.setText("use '-'. i.e.: 1-5. In order to");
+        jLabel6.setText("use '-'. Example: 1-5. In order to");
         jLabel6.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 20;
+        gridBagConstraints.gridy = 32;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         getContentPane().add(jLabel6, gridBagConstraints);
 
@@ -98,7 +101,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel7.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 22;
+        gridBagConstraints.gridy = 34;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         getContentPane().add(jLabel7, gridBagConstraints);
 
@@ -109,8 +112,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 22;
         getContentPane().add(jButton1, gridBagConstraints);
 
         jButton2.setText("Destination folder");
@@ -121,28 +124,62 @@ public class GUI extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 22;
         getContentPane().add(jButton2, gridBagConstraints);
 
         jTextArea1.setColumns(10);
         jTextArea1.setRows(1);
+        jTextArea1.setAutoscrolls(false);
+        jTextArea1.setLineWrap(true);
         jScrollPane1.setViewportView(jTextArea1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jTextArea2.setColumns(10);
         jTextArea2.setRows(1);
+        jTextArea2.setAutoscrolls(false);
+        jTextArea2.setLineWrap(true);
         jScrollPane2.setViewportView(jTextArea2);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(jScrollPane2, gridBagConstraints);
+
+        jButton3.setText("Search");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton3ActionPerformed(evt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 22;
+        getContentPane().add(jButton3, gridBagConstraints);
+
+        download_progress.setBackground(new java.awt.Color(255, 255, 255));
+        download_progress.setForeground(new java.awt.Color(102, 255, 102));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.gridwidth = 7;
+        getContentPane().add(download_progress, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 7;
+        getContentPane().add(actual_chapter, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -171,9 +208,7 @@ public class GUI extends javax.swing.JFrame {
         }
     }
 
-    //GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // Downloads Directory as default
         JFileChooser fc = new JFileChooser(new File(System.getProperty("user.home") + "\\Downloads"));
         fc.setDialogTitle("Select Location");
@@ -189,34 +224,83 @@ public class GUI extends javax.swing.JFrame {
         }
     }
 
+    // When 'search' button is pressed, the introduced name will be searched.
+    // This is done if there are multiple animes with the same name.
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
+        if (!Objects.equals(jTextArea2.getText(), "")) {
+            setAnimeName();
+
+            JPanel panel = new JPanel();
+
+            String result = null;
+            ArrayList<String> names = new ArrayList<>();
+
+            // Create the web client
+            WebClient webClient = new WebClient();
+            // Used to make the search faster
+            webClient.getOptions().setJavaScriptEnabled(false);
+            webClient.getOptions().setCssEnabled(false);
+            webClient.getOptions().setUseInsecureSSL(true);
+            webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+            webClient.getOptions().setRedirectEnabled(true);
+
+            // Prevents red text from appearing in the terminal
+            java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
+            java.util.logging.Logger.getLogger("org.apache.http").setLevel(Level.OFF);
+            // used to ignore errors in html and js code
+            webClient.getOptions().setThrowExceptionOnScriptError(false);
+
+            // Load the page
+            HtmlPage page = webClient.getPage("https://jkanime.net/buscar/" + getAnimeName());
+
+            // Find all h5 elements on the page
+            List<HtmlHeading5> h5List = page.getByXPath("//h5[contains(.," + getAnimeName().toLowerCase(Locale.ROOT) + ")]");
+
+            // Iterate over the h5 elements
+            for (HtmlHeading5 h5 : h5List) {
+                // Get the text of the h5 element
+                HtmlAnchor anchor = h5.getFirstByXPath(".//a");
+                String href = anchor.getHrefAttribute();
+
+                // Remove unwanted text from the url just to leave the name
+                href = href.replace("https://jkanime.net/", "");
+                href = href.substring(0, href.length() - 1);
+
+                // Add the name to an array
+                names.add(href);
+            }
+
+            // Close the web client
+            webClient.close();
+
+            // Show a pop-up with a selection of the different animes with the key word on them
+            panel.add(new JLabel("Select the anime you want:"));
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+            for (String value : names) {
+                model.addElement(value);
+            }
+
+            JComboBox comboBox = new JComboBox(model);
+            panel.add(comboBox);
+
+            int iResult = JOptionPane.showConfirmDialog(null, panel, "Animes", JOptionPane.OK_CANCEL_OPTION);
+
+            if (iResult == JOptionPane.OK_OPTION) {
+                result = (String) comboBox.getSelectedItem();
+
+                jTextArea2.setText(result);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "You must introduce an anime name");
+        }
+    }
+
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -228,6 +312,7 @@ public class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -239,6 +324,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JLabel actual_chapter;
+    private javax.swing.JProgressBar download_progress;
 
     private String name;
     private String chapters;
@@ -255,8 +342,10 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // function to get correct name fot the url
-    public String correctAnimeName() {
-        return "";
+    public String replaceSpaceAnimeName() {
+        String name = getAnimeName();
+
+        return (name.replace(" ", "-"));
     }
 
     // function get all the indicated chapters
@@ -375,13 +464,25 @@ public class GUI extends javax.swing.JFrame {
 
     // function to get the src of the videos
     public void searchVideos() throws IOException {
-        // get the selected chapters
+        // Get the selected chapters
         ArrayList<String> chapters = getAllChapters();
+
+        // Get the anime name with the spaces changed
+        String anime_name = replaceSpaceAnimeName();
+
         int i = 0;
 
         while (i < chapters.size()) {
             // create a new web client object to get the connection
             WebClient webClient = new WebClient();
+            // Used to make the search faster
+            webClient.getOptions().setCssEnabled(false);
+            webClient.getOptions().setUseInsecureSSL(true);
+            webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+            webClient.getOptions().setRedirectEnabled(true);
+            // Prevents red text from appearing in the terminal
+            java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
+            java.util.logging.Logger.getLogger("org.apache.http").setLevel(Level.OFF);
             // used to ignore errors in html and js code
             webClient.getOptions().setThrowExceptionOnScriptError(false);
 
@@ -401,7 +502,7 @@ public class GUI extends javax.swing.JFrame {
                 }
             };
 
-            String chapter_url = "https://jkanime.net/" + getAnimeName().toLowerCase(Locale.ROOT) + "/" + chapters.get(i) + "/";
+            String chapter_url = "https://jkanime.net/" + anime_name + "/" + chapters.get(i) + "/";
 
             webClient.getPage(chapter_url);
 
