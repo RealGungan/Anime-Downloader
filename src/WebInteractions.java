@@ -1,3 +1,6 @@
+package src;
+
+import src.GUI.GUI;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
@@ -16,6 +19,8 @@ import java.util.Locale;
 import java.util.logging.Level;
 
 public class WebInteractions implements Runnable {
+    static GUI gui;
+
     @Override
     public void run() {
         try {
@@ -48,10 +53,10 @@ public class WebInteractions implements Runnable {
         webClient.getOptions().setThrowExceptionOnScriptError(false);
 
         // Load the page
-        HtmlPage page = webClient.getPage("https://jkanime.net/buscar/" +  GUI.getInfo.getAnimeName());
+        HtmlPage page = webClient.getPage("https://jkanime.net/buscar/" + GUI.getInfo.getAnimeName());
 
         // Find all h5 elements on the page
-        List<HtmlHeading5> h5List = page.getByXPath("//h5[contains(.," +  GUI.getInfo.getAnimeName().toLowerCase(Locale.ROOT) + ")]");
+        List<HtmlHeading5> h5List = page.getByXPath("//h5[contains(.," + GUI.getInfo.getAnimeName().toLowerCase(Locale.ROOT) + ")]");
 
         // Iterate over the h5 elements
         for (HtmlHeading5 h5 : h5List) {

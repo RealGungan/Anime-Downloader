@@ -1,4 +1,6 @@
-import GUI.GUI;
+package src;
+
+import src.GUI.GUI;
 
 import java.util.ArrayList;
 import java.util.Objects;

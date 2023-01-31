@@ -1,4 +1,7 @@
-package GUI;
+package src.GUI;
+
+import src.Anime_info;
+import src.WebInteractions;
 
 import javax.swing.*;
 import java.io.File;
