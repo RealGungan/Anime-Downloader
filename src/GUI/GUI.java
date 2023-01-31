@@ -149,7 +149,7 @@ public class GUI extends javax.swing.JFrame {
 
         jButton3.setText("Search");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actiondPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     jButton3ActionPerformed(evt);
                 } catch (Exception e) {
