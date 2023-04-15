@@ -16,7 +16,7 @@ public class Anime_info implements Runnable {
 
     // function get all the indicated chapters
     public static ArrayList<String> getAllChapters() {
-        String chapters = gui.getChapters().replaceAll("\\s+", "");
+        String chapters = GUI.getInfo.getChapters().replaceAll("\\s+", "");
         ArrayList<String> separated_chapters = new ArrayList<String>();
         ArrayList<String> chapters_array = new ArrayList<String>();
         int start = 0; // variable for the start the interval between chapters

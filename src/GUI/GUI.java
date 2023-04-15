@@ -5,6 +5,7 @@ import src.WebInteractions;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 
@@ -149,7 +150,7 @@ public class GUI extends javax.swing.JFrame {
 
         jButton3.setText("Search");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actiondPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     jButton3ActionPerformed(evt);
                 } catch (Exception e) {
@@ -181,7 +182,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Creation of object to interact with the web
-    WebInteractions webInteractions = new WebInteractions();
+    WebInteractions web_interactions = new WebInteractions();
     // Create object to get Anime info
     Anime_info anime_info = new Anime_info();
 
@@ -189,13 +190,13 @@ public class GUI extends javax.swing.JFrame {
         if (!Objects.equals(jTextArea1.getText(), "") && !Objects.equals(jTextArea2.getText(), "") && jTextArea1.getText().charAt(jTextArea1.getText().length() - 1) != '-' && jTextArea1.getText().charAt(jTextArea1.getText().length() - 1) != ',') {
             setAnimeName();
             setChapters();
-            anime_info.getAllChapters();
+            Anime_info.getAllChapters();
 
-//            try {
-//                webInteractions.searchVideos();
-//            } catch (IOException e) {
-//                System.out.println(e.getMessage());
-//            }
+            try {
+                web_interactions.searchVideos();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         } else {
             JOptionPane.showMessageDialog(null, "You must fill the fields in a correct way");
         }
@@ -226,10 +227,11 @@ public class GUI extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
         setAnimeName();
         anime_info.run();
-//        if (!Objects.equals(jTextArea2.getText(), "")) {
-//        } else {
-//            JOptionPane.showMessageDialog(null, "You must introduce an anime name");
-//        }
+        if (!Objects.equals(jTextArea2.getText(), "")) {
+            web_interactions.searchAnimeNames();
+        } else {
+            JOptionPane.showMessageDialog(null, "You must introduce an anime name");
+        }
     }
 
 
@@ -276,11 +278,9 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
-    // function to get correct name fot the url
+    // function to get correct name format of the url
     public String replaceSpaceAnimeName() {
-        String name = getAnimeName();
-
-        return (name.replace(" ", "-"));
+        return (getAnimeName().replace(" ", "-"));
     }
 
     public void setAnimeName() {

@@ -167,7 +167,7 @@ public class WebInteractions implements Runnable {
 
         URL url = new URL(video);
         InputStream in = url.openStream();
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(GUI.getInfo.getDestinationFolder() + "\\" + anime_name + " " + chapter + ".mp4"));
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(GUI.getInfo.getDestinationFolder() + "\\" + anime_name + "_" + chapter + ".mp4"));
 
         GUI.getInfo.download_progress.setMaximum(in.available());
 
