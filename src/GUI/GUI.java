@@ -182,7 +182,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Creation of object to interact with the web
-    WebInteractions web_interactions = new WebInteractions();
+    WebInteractions webInteractions = new WebInteractions();
     // Create object to get Anime info
     Anime_info anime_info = new Anime_info();
 
@@ -190,10 +190,10 @@ public class GUI extends javax.swing.JFrame {
         if (!Objects.equals(jTextArea1.getText(), "") && !Objects.equals(jTextArea2.getText(), "") && jTextArea1.getText().charAt(jTextArea1.getText().length() - 1) != '-' && jTextArea1.getText().charAt(jTextArea1.getText().length() - 1) != ',') {
             setAnimeName();
             setChapters();
-            Anime_info.getAllChapters();
+            Anime_info.getAllChapters(getChapters());
 
             try {
-                web_interactions.searchVideos();
+                webInteractions.searchVideos(getChapters());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -228,7 +228,7 @@ public class GUI extends javax.swing.JFrame {
         setAnimeName();
         anime_info.run();
         if (!Objects.equals(jTextArea2.getText(), "")) {
-            web_interactions.searchAnimeNames();
+            webInteractions.searchAnimeNames();
         } else {
             JOptionPane.showMessageDialog(null, "You must introduce an anime name");
         }
@@ -278,9 +278,11 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
-    // function to get correct name format of the url
+    // function to get correct name fot the url
     public String replaceSpaceAnimeName() {
-        return (getAnimeName().replace(" ", "-"));
+        String name = getAnimeName();
+
+        return (name.replace(" ", "-"));
     }
 
     public void setAnimeName() {

@@ -19,8 +19,6 @@ import java.util.Locale;
 import java.util.logging.Level;
 
 public class WebInteractions implements Runnable {
-    static GUI gui;
-
     @Override
     public void run() {
         try {
@@ -31,7 +29,6 @@ public class WebInteractions implements Runnable {
     }
 
     public void searchAnimeNames() throws IOException {
-
         JPanel panel = new JPanel();
 
         String result = null;
@@ -53,10 +50,10 @@ public class WebInteractions implements Runnable {
         webClient.getOptions().setThrowExceptionOnScriptError(false);
 
         // Load the page
-        HtmlPage page = webClient.getPage("https://jkanime.net/buscar/" + GUI.getInfo.getAnimeName());
+        HtmlPage page = webClient.getPage("https://jkanime.net/buscar/" +  GUI.getInfo.getAnimeName());
 
         // Find all h5 elements on the page
-        List<HtmlHeading5> h5List = page.getByXPath("//h5[contains(.," + GUI.getInfo.getAnimeName().toLowerCase(Locale.ROOT) + ")]");
+        List<HtmlHeading5> h5List = page.getByXPath("//h5[contains(.," +  GUI.getInfo.getAnimeName().toLowerCase(Locale.ROOT) + ")]");
 
         // Iterate over the h5 elements
         for (HtmlHeading5 h5 : h5List) {
@@ -96,16 +93,16 @@ public class WebInteractions implements Runnable {
     }
 
     // function to get the src of the videos
-    public void searchVideos() throws IOException {
+    public void searchVideos(String chapters) throws IOException {
         // Get the selected chapters
-        ArrayList<String> chapters = Anime_info.getAllChapters();
+        ArrayList<String> allChapters = Anime_info.getAllChapters(chapters);
 
         // Get the anime name with the spaces changed
         String anime_name = GUI.getInfo.replaceSpaceAnimeName();
 
         int i = 0;
 
-        while (i < chapters.size()) {
+        while (i < allChapters.size()) {
             // create a new web client object to get the connection
             WebClient webClient = new WebClient();
             // Used to make the search faster
@@ -135,7 +132,7 @@ public class WebInteractions implements Runnable {
                 }
             };
 
-            String chapter_url = "https://jkanime.net/" + anime_name + "/" + chapters.get(i) + "/";
+            String chapter_url = "https://jkanime.net/" + anime_name + "/" + allChapters.get(i) + "/";
 
             webClient.getPage(chapter_url);
 
@@ -148,7 +145,7 @@ public class WebInteractions implements Runnable {
             HtmlVideo video = (HtmlVideo) page.getElementsByTagName("video").get(0);
 
             // call the function to download the video
-            downloadVideo(video.getSrc(), chapters.get(i));
+            downloadVideo(video.getSrc(), allChapters.get(i));
 
             // clear the list where the src is stored
             list.clear();

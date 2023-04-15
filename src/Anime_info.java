@@ -15,8 +15,8 @@ public class Anime_info implements Runnable {
     static GUI gui;
 
     // function get all the indicated chapters
-    public static ArrayList<String> getAllChapters() {
-        String chapters = GUI.getInfo.getChapters().replaceAll("\\s+", "");
+    public static ArrayList<String> getAllChapters(String chapters) {
+        String allChapters = chapters.replaceAll("\\s+", "");
         ArrayList<String> separated_chapters = new ArrayList<String>();
         ArrayList<String> chapters_array = new ArrayList<String>();
         int start = 0; // variable for the start the interval between chapters
@@ -25,9 +25,9 @@ public class Anime_info implements Runnable {
         boolean individual_chapter = false; // boolean to check if char is ','
 
         // if the string contains multiple chapters enter the 'if'
-        if (chapters.contains(",") || chapters.contains("-")) {
+        if (allChapters.contains(",") || allChapters.contains("-")) {
             // call the function to separate the chapters
-            separated_chapters = separateChapters(chapters);
+            separated_chapters = separateChapters(allChapters);
 
             for (int i = 0; i < separated_chapters.size(); i++) {
                 // check if the actual chapter is a number and the variable 'start' is 0
@@ -102,7 +102,7 @@ public class Anime_info implements Runnable {
             }
             // if it is only one chapter, add it
         } else {
-            chapters_array.add(gui.jTextArea1.getText());
+            chapters_array.add(chapters);
         }
 
         return chapters_array;
